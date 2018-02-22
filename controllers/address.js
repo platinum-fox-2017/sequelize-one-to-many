@@ -64,8 +64,19 @@ class Controller_address{
         View_address.showErr(err)
       })
     }
+    else if(order === 'full_address'){
+      address.findOne({where:{id:input}}).then(data=>{
+        let detail = JSON.parse(JSON.stringify(data))
+        // console.log(detail)
+        address.prototype.full_address(detail.street,detail.city,detail.zip_code)
+        process.exit()
+      })
+    }
+    else if(order === 'north_area'){
+      
+    }
   }
 
 }
-
+// address.prototype.full_address('jalan','city',15532)
 module.exports = Controller_address
