@@ -4,10 +4,17 @@ const View = require('../views/index');
 class ContactController {
 
   static main(command, options){
-
     if(command.search('list') >= 0){
       models.Contact.all({raw: true}).then((contacts) => {
         View.printResult(contacts);
+      });
+    } else if(command.search('find') >= 0){
+      let id = options[0];
+      models.Contact.findById(id).then((contact) => {
+        View.printResult([contact.dataValues]);
+        contact.getAddresses({raw: true}).then((address) => {
+          View.printResult(address);
+        });
       });
     } else if(command.search('add') >= 0){
       let input = ContactController.convertToObject(options[0]);
@@ -36,6 +43,15 @@ class ContactController {
       }).catch(() => {
         View.failToDelete('contact');
       })
+    } else if(command.search('withAddress') >= 0){
+      models.Contact.all({include: [{ model: models.Address}]}).then((contacts) => {
+
+        let arrOfContact = [];
+        for (var i = 0; i < contacts.length; i++) {
+          arrOfContact.push(contacts[i].dataValues);
+        }
+        View.printResult(arrOfContact);
+      });
     }
   }
 

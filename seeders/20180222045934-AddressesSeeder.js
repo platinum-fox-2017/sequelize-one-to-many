@@ -12,7 +12,7 @@ module.exports = {
         street: column[1],
         city: column[2],
         zipCode: column[3],
-        contactId: 1 ,
+        ContactId: 1 ,
         createdAt: new Date(),
         updatedAt: new Date()
       });

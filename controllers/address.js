@@ -5,6 +5,8 @@ class AddressController {
 
   static main(command, options){
 
+    command = command.split(':');
+    command = command[1];
     if(command.search('list') >= 0){
       models.Address.all({raw: true}).then((addresses) => {
         View.printResult(addresses);

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/platinum-fox-2017/sequelize-migration-seed#readme",
   "dependencies": {
+    "cli-table": "^0.3.1",
     "pg": "^7.4.1",
     "sequelize": "^4.33.4"
   }

@@ -17,7 +17,7 @@ module.exports = {
       zipCode: {
         type: Sequelize.STRING
       },
-      contactId: {
+      ContactId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

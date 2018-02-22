@@ -1,7 +1,21 @@
+const Table = require('cli-table');
 class View {
   static printResult(result){
-    console.log(result);
-
+    let tHead = [];
+    for ( let property in result[0] ) {
+      tHead.push(property);
+    }
+    var table = new Table({
+        head: tHead
+    });
+    for (var i = 0; i < result.length; i++) {
+      let dataPerRow = [];
+      for ( let property in result[i] ) {
+        dataPerRow.push(result[i][property]);
+      }
+      table.push(dataPerRow);
+    }
+    console.log(table.toString());  
   }
   static successToAdd(table){
     console.log(`Berhasil Menambah Data ${table}`);
