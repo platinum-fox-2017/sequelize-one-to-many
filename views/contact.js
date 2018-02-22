@@ -21,8 +21,8 @@ class Contact {
     process.exit()
   }
 
-  static last(obj) {
-    console.log(`si ${obj.nama} punya ${obj.alamat} rumah`);
+  static last(data) {
+    console.log(data);
   }
 }
 

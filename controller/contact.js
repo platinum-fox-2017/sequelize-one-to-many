@@ -3,9 +3,6 @@ const View = require('../views/contact')
 
 
 class ConContact {
-  constructor() {
-
-  }
   static doSomething(command, request) {
     if (command === 'list') {
       Contact.findAll({
@@ -77,18 +74,10 @@ class ConContact {
         include: [{
           model: Address
         }]
-      }).then(contacts => {
-        let panjang = contacts.dataValues.Addresses
-        for (var i = 0; i < panjang.length; i++) {
-          // console.log(panjang[i].dataValues)
-          var obj = {
-            nama: contacts.dataValues.name,
-            alamat: i+1
-          }
-        }
-        View.last(obj)
-        // console.log(obj.nama);
-        // console.log(contacts.dataValues.Addresses.length);
+      }).then(data => {
+        let newData = JSON.parse(JSON.stringify(data))
+        console.log(newData);
+        View.last(newData)
         process.exit()
       })
     }
