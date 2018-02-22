@@ -39,7 +39,8 @@ class Controller{
         model.Address.create({
           street: option[0],
           city: option[1],
-          zip_code: option[2] }).then(projects => {
+          zip_code: option[2],
+          ContactId: option[3]}).then(projects => {
           view.addFile()
         }); break;
 
@@ -54,6 +55,16 @@ class Controller{
         model.Address.destroy({where:{id: option[0]}}).then(projects => {
           view.deleteData('Address', option, projects)
         }); break;
+
+      case "contacts:complete":
+        // Model.Contact.findAll({
+        // attributes: { include: [[sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']] }
+        model.Address.findAll({
+          include: models.Address,
+          raw:true
+        }).then(projects => {
+          view.printAll(projects)
+        });
 
       case "help": view.help(); break;
       default: view.help()
