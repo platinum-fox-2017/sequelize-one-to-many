@@ -42,6 +42,19 @@ class Control {
 					if (result) View.ShowData(`Data ${modelName} dengan id : ${options[0]} telah dihapus`)
 				});
 				break;
+
+			case "fullAddress":
+				Control.fullAddress(data => View.ShowData(data));
+				break;
+
+			case "north-area":
+				model.Address.northArea().then(data => View.ShowData(data));
+				break;
+
+			case "south-area":
+				model.Address.southArea().then(data => View.ShowData(data));
+				break;
+
 			default :
 				View.ShowHelp();
 		}
@@ -70,6 +83,17 @@ class Control {
 	static delete (modelName, data, callback) {
 		model[modelName].destroy({ where: { id: data }})
 		.then(result => callback(result));
+	}
+
+	static fullAddress (callback) {
+		model.Address.findAll()
+		.then(rows => {
+			let address = [];
+			rows.forEach(row => {
+				address.push(row.fullAddress());
+			});
+			callback(address);
+		});
 	}
 }
 
