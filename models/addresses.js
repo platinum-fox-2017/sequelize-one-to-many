@@ -6,8 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     zip_code: DataTypes.INTEGER,
     contactID: DataTypes.INTEGER
   }, {});
-    addresses.associate = function(models) {
-      addresses.belongsTo(models.contacts, {foreignKey: 'contactID'})
+  addresses.associate = function(models) {
+    addresses.belongsTo(models.contacts, {foreignKey: 'contactID'})
   };
+
   return addresses;
 };

@@ -34,11 +34,12 @@ class Contacts {
     console.log('Data dengan ID: '+data+' berhasil dihapus');
   }
   static showAddresses(data){
-    let result = []
-    for(let i=0; i<data.addresses.length; i++){
-      result.push(data.addresses[i].dataValues)
-    }
-    console.log(`Rumah ${data.name}:`)
+    // let result = []
+    // for(let i=0; i<data.addresses.length; i++){
+    //   result.push(data.addresses[i].dataValues)
+    // }
+    // console.log(`Rumah ${data.name}:`)
+    let result = JSON.parse(JSON.stringify(data))
     console.log(result)
   }
 }
