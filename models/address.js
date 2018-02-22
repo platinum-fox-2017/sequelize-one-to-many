@@ -5,14 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     zip_code: DataTypes.INTEGER,
     id_contact: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate: function(models) {
-        Address.belongsTo(models.Contact, {
-          foreignKey: 'id_contact'
-        })
-      }
-    }
-  });
+  }, {});
+  Address.associate= function(models) {
+    Address.belongsTo(models.Contact, {
+      foreignKey: 'id_contact'
+    })
+  }
   return Address;
 };

@@ -1,17 +1,14 @@
-'use strict';
+'use strict'
 module.exports = (sequelize, DataTypes) => {
   var Contact = sequelize.define('Contact', {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     phone: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        Contact.hasMany(models.Address, {
-          foreignKey: id
-        })
-      }
-    }
-  });
+  }, {});
+  Contact.associate = function(models) {
+    Contact.hasMany(models.Address, {
+      foreignKey: 'id_contact'
+    })
+  }
   return Contact;
 };

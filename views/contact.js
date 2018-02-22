@@ -20,6 +20,10 @@ class Contact {
     console.log(`Succesfully delete ${data}`);
     process.exit()
   }
+
+  static last(obj) {
+    console.log(`si ${obj.nama} punya ${obj.alamat} rumah`);
+  }
 }
 
 module.exports = Contact

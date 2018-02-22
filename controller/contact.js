@@ -1,4 +1,4 @@
-const {Contact} = require('../models');
+const {Contact, Address} = require('../models');
 const View = require('../views/contact')
 
 
@@ -8,9 +8,14 @@ class ConContact {
   }
   static doSomething(command, request) {
     if (command === 'list') {
-      Contact.findAll().then(contacts => {
+      Contact.findAll({
+        include: [{
+          model: Address
+        }]
+      }).then(contacts => {
         contacts.forEach(data => {
           View.show_data(data.dataValues)
+
         })
         process.exit()
       })
@@ -63,6 +68,28 @@ class ConContact {
             id: id_user
           }
         })
+      })
+    }
+
+    else if (command === 'show_address') {
+      let id_user = +request[0]
+      Contact.findById(id_user,{
+        include: [{
+          model: Address
+        }]
+      }).then(contacts => {
+        let panjang = contacts.dataValues.Addresses
+        for (var i = 0; i < panjang.length; i++) {
+          // console.log(panjang[i].dataValues)
+          var obj = {
+            nama: contacts.dataValues.name,
+            alamat: i+1
+          }
+        }
+        View.last(obj)
+        // console.log(obj.nama);
+        // console.log(contacts.dataValues.Addresses.length);
+        process.exit()
       })
     }
   }
