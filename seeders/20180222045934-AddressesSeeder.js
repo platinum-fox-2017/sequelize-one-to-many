@@ -9,7 +9,10 @@ module.exports = {
     for (var i = 0; i < addressCsv.length - 1; i++) {
       let column = addressCsv[i].split(',');
       arrayAddress.push({
+        street: column[1],
+        city: column[2],
         zipCode: column[3],
+        contactId: 1 ,
         createdAt: new Date(),
         updatedAt: new Date()
       });
