@@ -65,6 +65,21 @@ class View{
         console.log("" + table)
     }
 
+    static ContactAddress(data){
+        var table = new Table({
+            head : ['ID','Name','Email','Phone','Address'],
+      
+          })
+          for(let i=0; i<data.length; i++){
+              table.push([Chalk.green(data[i].id),
+                      Chalk.blue(data[i].name),
+                      Chalk.cyan(data[i].email),
+                      Chalk.yellow(data[i].phone),
+                      Chalk.magenta(data[i].Addresses)])
+            }
+      console.log("" + table)
+    }
+
 }
 
 module.exports = View

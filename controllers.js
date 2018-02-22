@@ -11,6 +11,7 @@ class Controller{
         if(syntax == 'contacts:list'){
             models.Contact.findAll({raw:true}).then(contactData => {
                 views.viewContact(contactData)
+                process.exit()
             })
         }
         else if(syntax == 'contacts:add'){
@@ -24,17 +25,25 @@ class Controller{
                   plain: true
                 }))
                 views.addContact(arrData)
+                process.exit()
               })
         }
         else if(syntax == 'contacts:update'){
-            models.Contact.update({ 
-                name:option[1], 
-                email:option[2],
-                phone:option[3]
-            }, {where:{
-                id:option[0]
-            }}).then(() => {
-
+            var obj = {}
+            if(option[1] == 'name'){
+                obj = {name:option[2]}
+            }
+            else if(option[1] == 'email'){
+                obj = {email:option[2]}
+            }
+            else if(option[1] == 'phone'){
+                obj = {phone:option[2]}
+            }
+            models.Contact.update(obj,
+                {where:{
+                    id:option[0]
+                }}).then(() => {
+                    process.exit()
             })
         }
         else if(syntax == 'contacts:delete'){
@@ -47,6 +56,7 @@ class Controller{
         else if(syntax == 'addresses:list'){
             models.Address.findAll({raw:true}).then(addressData => {
                 views.viewAddress(addressData)
+                process.exit()
             })
         }
         else if(syntax == 'addresses:add'){
@@ -60,17 +70,25 @@ class Controller{
                   plain: true
                 }))
                 views.addAddress(arrData)
+                process.exit()
               })
         }
         else if(syntax == 'addresses:update'){
-            models.Address.update({ 
-                street:option[1], 
-                city:option[2],
-                zip_code:option[3]
-            }, {where:{
-                id:option[0]
-            }}).then(() => {
-
+            var obj = {}
+            if(option[1] == 'street'){
+                obj = {street:option[2]}
+            }
+            else if(option[1] == 'city'){
+                obj = {city:option[2]}
+            }
+            else if(option[1] == 'zip_code'){
+                obj = {zip_code:option[2]}
+            }
+            models.Address.update(obj, 
+                {where:{
+                    id:option[0]
+                }}).then(() => {
+                    process.exit()
             })
         }
         else if(syntax == 'addresses:delete'){
@@ -78,6 +96,21 @@ class Controller{
                 where:{
                     id:option[0]
                 } 
+            })
+        }
+        else if(syntax == 'ContactAddress'){
+            models.Contact.findAll({
+                include:
+                    [{model: models.Address}]
+            }).then(data =>{
+                let dataContact = []
+                for(let i=0; i<data.length; i++){
+                    dataContact.push(data[i].dataValues)
+                }
+
+                // console.log(dataContact)
+                views.ContactAddress(dataContact)
+                process.exit()
             })
         }
     }
