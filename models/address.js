@@ -5,12 +5,15 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     zip_code: DataTypes.INTEGER,
     id_contact: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
-  });
+  },);
+
+  Address.associate = function (models) {
+    Address.belongsTo(models.Contact,{foreignKey:'id_contact'})
+  };
+
+  Address.prototype.fullAddress = function() {
+    let full_Address = `Alamat lengkap : ${street} - ${city} (${zip_code})`
+    return full_Address
+  }
   return Address;
 };

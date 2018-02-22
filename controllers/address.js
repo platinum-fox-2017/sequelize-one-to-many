@@ -1,4 +1,4 @@
-const {Address} = require('../models')
+const {Address, Contact} = require('../models')
 const View = require('../views/address')
 class Controller{
     static list(){
@@ -53,6 +53,14 @@ class Controller{
             View.commandDeleted(id)
             process.exit();
         })
+    }
+    static full_Address(id){
+        Address.findById(id).then(data=>{
+            let contactData = JSON.parse(JSON.stringify(data))
+            console.log(contactData)
+            //contactData.fullAddress()
+            console.log(contactData)
+        }).catch(err=>console.log(err))
     }
 }
 

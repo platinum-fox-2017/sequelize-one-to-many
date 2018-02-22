@@ -13,6 +13,8 @@ class View{
     static commandDeleted(id){
         console.log(chalk.red(`contact with id ${id} deleted`))        
     }
-    
+    static showAddressByContact(data){
+        console.log(data)        
+    }
 }
 module.exports = View
