@@ -1,4 +1,4 @@
-const {contact} = require('../models')
+const {contact,address} = require('../models')
 const View_contact = require('../views/contact')
 
 class Controller_contact{
@@ -6,18 +6,60 @@ class Controller_contact{
 
   }
   static command(order,input){
-    console.log(order,'-----------------')
     if(order === 'list'){
       contact.findAll().then(dataAll=>{
         // console.log(dataAll)
         let arrContact = []
-        dataAll.map(detailData=>{
-          arrContact.push(detailData.dataValues)
-        })
+        for(let i=0;i<dataAll.length;i++){
+          // console.log(dataAll[i].dataValues)
+          arrContact.push(dataAll[i].dataValues)
+        }
         View_contact.showAll(arrContact)
         process.exit()
       }).catch(err=>{
         View_contact.showErr(err)
+      })
+    }
+    else if(order === 'listAll'){
+        contact.findAll({
+          include:[address]
+        }).then(dataAll=>{
+          // console.log(dataAll)
+          let arrContact = []
+          for(let i=0;i<dataAll.length;i++){
+            // console.log(dataAll[i].dataValues)
+            arrContact.push(dataAll[i].dataValues)
+          }
+          for(let j=0;j<arrContact.length;j++){
+            // console.log(arrContact[j].addresses)
+            let addrList = arrContact[j].addresses
+            let arrAddr =[]
+            for(let k=0;k<addrList.length;k++){
+              arrAddr.push(addrList[k].dataValues)
+            }
+            
+            arrContact[j].addresses = arrAddr
+            // console.log(arrContact[j])
+          }
+          console.log(arrContact)
+          // View_contact.showAll(arrContact)
+          process.exit()
+        })
+    }
+    else if(order === 'showOne'){
+      contact.findOne({where:{id:input},include:[address]}).then(data=>{
+        // console.log(data.dataValues.addresses)
+        let addressList = data.dataValues.addresses
+        let arr=[]
+        for(let i=0;i<addressList.length;i++){
+          // console.log(addressList[i].dataValues)
+          arr.push(addressList[i].dataValues)
+        }
+        data.dataValues.addresses = arr
+        // console.log(data.dataValues)
+        View_contact.showAll(data.dataValues)
+        
+        process.exit()
       })
     }
     else if(order === 'add'){
