@@ -24,25 +24,6 @@ class Controller_contact{
         contact.findAll({
           include:[address]
         }).then(dataAll=>{
-          // console.log(dataAll)
-          // let arrContact = []
-          // for(let i=0;i<dataAll.length;i++){
-          //   // console.log(dataAll[i].dataValues)
-          //   arrContact.push(dataAll[i].dataValues)
-          // }
-          // for(let j=0;j<arrContact.length;j++){
-          //   // console.log(arrContact[j].addresses)
-          //   let addrList = arrContact[j].addresses
-          //   let arrAddr =[]
-          //   for(let k=0;k<addrList.length;k++){
-          //     arrAddr.push(addrList[k].dataValues)
-          //   }
-            
-          //   arrContact[j].addresses = arrAddr
-          //   // console.log(arrContact[j])
-          // }
-          // console.log(arrContact)
-          // console.log(JSON.parse(JSON.stringify(dataAll)))
           let temp = JSON.parse(JSON.stringify(dataAll))
           View_contact.showAll(temp)
           process.exit()
@@ -50,15 +31,6 @@ class Controller_contact{
     }
     else if(order === 'showOne'){
       contact.findOne({where:{id:input},include:[address]}).then(data=>{
-        // console.log(data.dataValues.addresses)
-        // let addressList = data.dataValues.addresses
-        // let arr=[]
-        // for(let i=0;i<addressList.length;i++){
-        //   // console.log(addressList[i].dataValues)
-        //   arr.push(addressList[i].dataValues)
-        // }
-        // data.dataValues.addresses = arr
-        // console.log(data.dataValues)
         let temp = JSON.parse(JSON.stringify(data))
         View_contact.showAll(temp)
         
