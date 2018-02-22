@@ -15,7 +15,18 @@ class ControllerContacts{
             this.update(id, data)
         }else if(input === 'delete') {
             this.delete(data)
+        }else if (input === 'find_one') {
+            let id = data[0]
+            this.find_one(id)
         }
+    }
+
+    static find_one(id){
+        Contacts.Contacts.findOne({where: {id:id}, include: Addresses}).then(data => {
+            let beautify = JSON.parse(JSON.stringify(data))
+            console.log(beautify)
+            process.exit()
+        })
     }
 
     static add(data){
@@ -31,8 +42,9 @@ class ControllerContacts{
     }
 
     static list(){
-        Contacts.Contacts.findAll({raw:true, include: Addresses }).then(contacts => {
-            console.log(contacts)
+        Contacts.Contacts.findAll({include: Addresses }).then(contacts => {
+            let beautify = JSON.parse(JSON.stringify(contacts))
+            console.log(beautify)
             process.exit()
         })
     }

@@ -31,8 +31,9 @@ class ControllerAddresses{
     }
 
     static list(){
-        Addresses.Addresses.findAll({raw:true}).then(addresses => {
-            console.log(addresses)
+        Addresses.Addresses.findAll().then(addresses => {
+            let beautify = JSON.parse(JSON.stringify(addresses))
+            console.log(beautify)
             process.exit()
         })
     }
