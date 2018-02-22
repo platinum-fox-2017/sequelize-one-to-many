@@ -9,7 +9,30 @@ class AddressController {
     command = command[1];
     if(command.search('list') >= 0){
       models.Address.all({raw: true}).then((addresses) => {
+        console.log(addresses);
         View.printResult(addresses);
+      });
+    } else if(command.search('northArea') >= 0){
+      models.Address.northArea(models).then((addresses) => {
+        View.printResult(addresses);
+      }).catch((err) => {
+        console.log(err);
+      });
+    } else if(command.search('southArea') >= 0){
+      models.Address.southArea(models).then((addresses) => {
+        View.printResult(addresses);
+      }).catch((err) => {
+        console.log(err);
+      });
+    } else if(command.search('fullAddress') >= 0){
+      models.Address.all().then((addresses) => {
+        let arrOfAddress = [];
+        for (var i = 0; i < addresses.length; i++) {
+          arrOfAddress.push( { fullAddress: addresses[i].fullAddress()});
+        }
+        View.printResult(arrOfAddress);
+      }).catch((err) => {
+        console.log(err);
       });
     } else if(command.search('add') >= 0){
       let input = AddressController.convertToObject(options[0]);

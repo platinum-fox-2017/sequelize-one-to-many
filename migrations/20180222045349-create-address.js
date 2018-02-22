@@ -15,9 +15,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       zipCode: {
-        type: Sequelize.STRING
-      },
-      ContactId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
